@@ -21,16 +21,30 @@ class TodoRepositoryImpl implements TodoRepository {
   }
 
   @override
-  Future<void> toggleTodo(Todo todo) {
+  Future<void> updateTodo(Todo todo) {
     final updated = TodoModel(
       id: todo.id,
       title: todo.title,
       description: todo.description,
       priority: todo.priority,
       category: todo.category,
-      isCompleted: !todo.isCompleted,
+      isCompleted: todo.isCompleted,
     );
     return local.update(updated);
+  }
+
+  @override
+  Future<void> toggleTodo(Todo todo) {
+    return updateTodo(
+      Todo(
+        id: todo.id,
+        title: todo.title,
+        description: todo.description,
+        priority: todo.priority,
+        category: todo.category,
+        isCompleted: !todo.isCompleted,
+      ),
+    );
   }
 
   @override

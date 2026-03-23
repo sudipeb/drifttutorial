@@ -14,9 +14,19 @@ class TodoModel extends Todo {
       id: row.id,
       title: row.title,
       description: row.description,
-      category: row.category,
-      priority: row.priority,
+      category: _parseCategory(row.category as String),
+      priority: _parsePriority(row.priority as String),
       isCompleted: row.isCompleted,
     );
+  }
+
+  static Category _parseCategory(String raw) {
+    final normalized = raw.trim().toUpperCase();
+    return Category.values.firstWhere((category) => category.label == normalized, orElse: () => Category.miscellaneous);
+  }
+
+  static Priority _parsePriority(String raw) {
+    final normalized = raw.trim().toUpperCase();
+    return Priority.values.firstWhere((priority) => priority.label == normalized, orElse: () => Priority.low);
   }
 }

@@ -10,18 +10,22 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.8
-  flutter_bloc: ^8.1.0
-  freezed_annotation: ^2.4.0
+  flutter_bloc: ^9.1.1
+  freezed_annotation: ^3.1.0
   drift: ^2.0.0
   path_provider: ^2.1.5
   path: ^1.9.1
+  simplex:
+    git:
+      url: https://github.com/basnetjiten/simplex.git
+      ref: master
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^6.0.0
   build_runner: ^2.4.0
-  freezed: ^2.4.0
+  freezed: ^3.1.0
   drift_dev: ^2.0.0
 
 flutter:

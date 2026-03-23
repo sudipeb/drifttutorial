@@ -1,11 +1,10 @@
 import 'package:drift/drift.dart';
 import 'package:drifttutorial/core/database/app_database.dart';
 import 'package:drifttutorial/features/todo/data/models/todo_model.dart';
-import 'package:flutter/foundation.dart';
 
 abstract class TodoLocalDataSource {
   Stream<List<TodoModel>> watchTodos();
-  Future<void> insert(String title, String description, String category, String priority);
+  Future<void> insert(String title, String description, String priority, String category);
   Future<void> update(TodoModel todo);
   Future<void> delete(int id);
 }
@@ -21,7 +20,7 @@ class TodoLocalDataSourceImpl implements TodoLocalDataSource {
   }
 
   @override
-  Future<void> insert(String title, String description, String category, String priority) async {
+  Future<void> insert(String title, String description, String priority, String category) async {
     await db
         .into(db.todos)
         .insert(TodosCompanion.insert(title: title, description: description, category: category, priority: priority));
@@ -31,7 +30,16 @@ class TodoLocalDataSourceImpl implements TodoLocalDataSource {
   Future<void> update(TodoModel todo) async {
     await db
         .update(db.todos)
-        .replace(TodosCompanion(id: Value(todo.id), title: Value(todo.title), isCompleted: Value(todo.isCompleted)));
+        .replace(
+          TodosCompanion(
+            id: Value(todo.id),
+            title: Value(todo.title),
+            description: Value(todo.description),
+            category: Value(todo.category.label),
+            priority: Value(todo.priority.label),
+            isCompleted: Value(todo.isCompleted),
+          ),
+        );
   }
 
   @override
