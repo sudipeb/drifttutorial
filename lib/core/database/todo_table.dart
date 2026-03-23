@@ -1,5 +1,5 @@
 import 'package:drift/drift.dart';
-import 'package:flutter/material.dart' hide Table;
+
 
 class Todos extends Table {
   IntColumn get id => integer().autoIncrement()();
